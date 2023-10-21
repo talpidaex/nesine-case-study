@@ -1,5 +1,10 @@
+const webpack = require("webpack");
+const dotenv = require("dotenv");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+dotenv.config();
+
 module.exports = {
   output: {
     path: path.join(__dirname, "/dist"),
@@ -7,7 +12,7 @@ module.exports = {
   },
   devServer: {
     port: 3000,
-    hot: true
+    hot: true,
   },
   module: {
     rules: [
@@ -20,13 +25,15 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [
-             MiniCssExtractPlugin.loader,
-             "css-loader", 
-             "sass-loader"
-            ],
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin()]
+  devtool: "source-map",
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+    }),
+  ],
 };
