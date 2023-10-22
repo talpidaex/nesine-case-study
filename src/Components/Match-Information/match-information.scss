@@ -1,0 +1,17 @@
+.match-container {
+  border: 1px solid gray;
+  width: 350px;
+  .content {
+    border-top: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 50px;
+    span {
+      margin-right: 10px;
+    }
+    .year {
+      font-weight: 700;
+    }
+  }
+}
