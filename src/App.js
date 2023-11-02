@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useFetch from "./Hooks/useFetch";
 import MatchInformation from "./Components/Match-Information";
 import OCGComponent from "./Components/OCG-Component";
+import Window from "./Components/Window";
 import "./App.scss";
 import OrderCart from "./Components/Order-Cart";
 import { Provider } from "./Store/Provider";
@@ -9,7 +10,6 @@ import { Provider } from "./Store/Provider";
 export default function App() {
   const { lazyData, getDataWithPage, fetchData, data } = useFetch();
   const [loadedElements, setLoadedElements] = useState(15);
-
 
   useEffect(() => {
     fetchData();
@@ -36,7 +36,18 @@ export default function App() {
   return (
     <Provider>
       <div className="project-container">
-        {lazyData &&
+        <Window
+          isVirtualizationEnabled={true}
+          rowHeight={60}
+        >
+          {new Array(100)
+            .fill({})
+            .map((_, index) => ({ id: index }))
+            .map((item) => {
+              item.id;
+            })}
+        </Window>
+        {/* {lazyData &&
           lazyData.map((bet) => (
             <div className="container">
               <MatchInformation match={bet} />
@@ -47,7 +58,7 @@ export default function App() {
                 code={bet.C}
               />
             </div>
-          ))}
+          ))} */}
         <OrderCart />
       </div>
     </Provider>
